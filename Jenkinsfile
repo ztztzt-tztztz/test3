@@ -5,10 +5,7 @@ pipeline {
       agent any
       steps {
         sh 'echo ${mvn_home}'
-        sh '''
-export PATH=${PATH}:${mvn_home}/bin
-echo $PATH
-mvn clean install'''
+        sh '${mvn_home}/bin/mvn  clean install'
       }
     }
 
