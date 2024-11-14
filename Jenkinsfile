@@ -15,6 +15,7 @@ mvn clean install'''
     stage('echo ') {
       steps {
         sh 'echo $PATH'
+        sh 'echo $mvn_home'
       }
     }
 
