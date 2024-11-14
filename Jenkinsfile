@@ -12,7 +12,7 @@ pipeline {
     stage('build image') {
       agent any
       steps {
-        tool(name: 'docker test', type: 'docker')
+        tool(name: 'test docker', type: 'docker')
       }
     }
 
