@@ -4,6 +4,7 @@ pipeline {
     stage('Build') {
       agent any
       steps {
+        cleanws()
         sh 'echo ${mvn_home}'
         sh '${mvn_home}/bin/mvn clean install'
       }
@@ -13,11 +14,8 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'ls -l'
-        dir(path: '/var/jenkins_home/workspace/test3_main@2') {
-          sh 'pwd '
-          sh 'bash -c "docker build -t test:v1 ."'
-        }
-
+        sh 'pwd '
+        sh 'bash -c "docker build -t test:v1 ."'
         sh 'pwd'
       }
     }
