@@ -15,6 +15,7 @@ pipeline {
           sh 'bash -c "docker push ztztzt12345/test:v1"'
         }
 
+        sh 'docker tag test:v1 ztztzt12345/test:v1'
       }
     }
 
