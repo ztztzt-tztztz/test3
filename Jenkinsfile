@@ -5,6 +5,7 @@ pipeline {
       steps {
         tool(name: 'maven test', type: 'maven')
         sh 'mvn test'
+        sh 'mvn clean install'
       }
     }
 
