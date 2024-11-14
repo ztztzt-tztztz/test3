@@ -2,14 +2,8 @@ pipeline {
   agent any
   stages {
     stage('Build') {
-      agent {
-        node {
-          label 'master'
-        }
-
-      }
+      agent any
       steps {
-        tool(name: 'test', type: 'maven')
         sh 'sh \'mvn clean install\''
       }
     }
