@@ -10,7 +10,6 @@ pipeline {
 
     stage('bulid image') {
       steps {
-        sh 'bash -c "docker build -t test:v1 ."'
         dir(path: '/var/jenkins_home/workspace/test3_main@2') {
           sh 'bash -c "docker build -t test:v1 ."'
           sh 'bash -c "docker push ztztzt12345/test:v1"'
