@@ -22,7 +22,7 @@ pipeline {
     stage('test') {
       steps {
         sh 'echo "test"'
-        sshCommand remote: [host: '192.168.1.10',user: 'zt']， command: 'docker ps'
+        
 
         
       }
