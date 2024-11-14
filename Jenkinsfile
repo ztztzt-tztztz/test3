@@ -22,6 +22,11 @@ pipeline {
     stage('test') {
       steps {
         sh 'echo "test"'
+        sshCommand remote: [
+    host: '192.168.1.10',  // 目标机器的 IP 地址
+    user: 'ubuntu',        // SSH 用户
+    identityFile: '/path/to/your/ssh/key'  // SSH 密钥文件
+], command: 'docker ps'
         
       }
     }
