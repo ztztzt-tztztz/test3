@@ -13,7 +13,6 @@ pipeline {
       steps {
         sh 'pwd'
         sh 'ls -l'
-        sh 'sh \'docker build -t test:v1 .\''
         dir(path: '/var/jenkins_home/workspace/test3_main@2') {
           sh 'pwd '
           sh 'sh \'docker build -t test:v1 .\''
