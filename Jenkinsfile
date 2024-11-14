@@ -10,6 +10,6 @@ pipeline {
 
   }
   environment {
-    PATH = 'PATH+EXTRA=/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test/bin'
+    PATH = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test/bin'
   }
 }
