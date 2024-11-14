@@ -9,8 +9,4 @@ pipeline {
     }
 
   }
-  environment {
-    MAVEN_HOME = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test'
-    PATH = '${env.PATH}:${MAVEN_HOME}/bin'
-  }
 }
