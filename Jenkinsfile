@@ -4,9 +4,11 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        ws(dir: '/var/jenkins_home/workspace/test2_main')
         sh 'echo ${mvn_home}'
-        sh '${mvn_home}/bin/mvn  clean install'
+        ws(dir: '/var/jenkins_home/workspace/test2_main') {
+          sh '${mvn_home}/bin/mvn  clean install'
+        }
+
       }
     }
 
