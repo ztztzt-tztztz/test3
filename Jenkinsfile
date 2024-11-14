@@ -1,13 +1,15 @@
 pipeline {
-    agent any
-    tools {
-        maven 'maven test'  // 这里指定在全局工具配置中设置的 Maven 版本
+  agent any
+  stages {
+    stage('BUlid') {
+      steps {
+        tool(name: 'maven test', type: 'maven')
+        sh 'mvn test'
+      }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn clean install'  // 执行 Maven 命令
-            }
-        }
-    }
+
+  }
+  tools {
+    maven 'maven test'
+  }
 }
