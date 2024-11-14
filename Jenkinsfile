@@ -5,7 +5,7 @@ pipeline {
       agent any
       steps {
         tool(name: 'mvn test', type: 'maven')
-        sh 'mvn clean install'
+        sh 'sh \'mvn clean install\''
       }
     }
 
