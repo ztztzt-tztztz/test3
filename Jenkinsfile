@@ -5,10 +5,7 @@ pipeline {
       agent any
       steps {
         sh 'echo ${mvn_home}'
-        ws(dir: '/var/jenkins_home/workspace/test2_main') {
-          sh '${mvn_home}/bin/mvn  clean install'
-        }
-
+        sh '${mvn_home}/bin/mvn clean install'
       }
     }
 
@@ -17,7 +14,11 @@ pipeline {
         sh 'pwd'
         sh 'ls -l'
         sh 'sh \'docker build -t test:v1 .\''
-        sh 'docker push ztztzt12345/test:v1'
+        dir(path: '/var/jenkins_home/workspace/test3_main@2') {
+          sh 'docker build -t test:v1 .'
+        }
+
+        sh 'pwd'
       }
     }
 
