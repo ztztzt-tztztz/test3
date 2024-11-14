@@ -12,6 +12,12 @@ mvn clean install'''
       }
     }
 
+    stage('echo ') {
+      steps {
+        sh 'echo $PATH'
+      }
+    }
+
   }
   environment {
     mvn_home = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test'
