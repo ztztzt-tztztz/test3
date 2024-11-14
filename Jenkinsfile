@@ -4,8 +4,11 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        sh 'sh \'mvn clean install\''
         sh 'echo ${env.mvn_home}'
+        sh '''
+export PATH=${env.PATH}:${env.mvn_home}/bin
+echo $PATH
+sh \'mvn clean install\''''
       }
     }
 
