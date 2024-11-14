@@ -1,24 +1,16 @@
 pipeline {
   agent any
   stages {
-    stage('BUlid') {
-      steps {
-        tool(name: 'maven test', type: 'maven')
-        sh 'mvn test'
-        sh 'mvn clean install'
-      }
-    }
-
-    stage('build image') {
+    stage('build ') {
       agent {
         docker {
-          image 'docker:latest'
-          args 'args \'--privileged -v /var/run/docker.sock:/var/run/docker.sock\''
+          image 'maven:3-jdk-8'
+          args '-v /path/to/your/volume:/app'
         }
 
       }
       steps {
-        sh 'sh \'docker build -t my-app-image:latest .\''
+        sh 'sh \'mvn clean install\''
       }
     }
 
