@@ -9,7 +9,7 @@ pipeline {
 
       }
       steps {
-        tool(name: 'test', type: 'Maven')
+        tool(name: 'test', type: 'maven')
         sh 'sh \'mvn clean install\''
       }
     }
