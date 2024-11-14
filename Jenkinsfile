@@ -10,9 +10,15 @@ pipeline {
     }
 
     stage('build image') {
-      agent any
+      agent {
+        docker {
+          image 'docker:latest'
+          args 'args \'--privileged -v /var/run/docker.sock:/var/run/docker.sock\''
+        }
+
+      }
       steps {
-        sh 'docker ps'
+        sh 'sh \'docker build -t my-app-image:latest .\''
       }
     }
 
