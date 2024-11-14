@@ -19,12 +19,9 @@ pipeline {
       }
     }
 
-    stage('test') {
+    stage('deploy') {
       steps {
-        sh 'echo "test"'
-        
-
-        
+        sh 'bash -c "ssh zt@172.22.145.22 \'docker ps\'"'
       }
     }
 
