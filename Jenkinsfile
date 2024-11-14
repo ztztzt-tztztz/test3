@@ -9,6 +9,13 @@ pipeline {
       }
     }
 
+    stage('build image') {
+      agent any
+      steps {
+        tool(name: 'docker test', type: 'docker')
+      }
+    }
+
   }
   tools {
     maven 'maven test'
