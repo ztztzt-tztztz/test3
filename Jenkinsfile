@@ -22,7 +22,7 @@ pipeline {
     stage('test') {
       steps {
         sh 'echo "test"'
-        sshCommand(remote: [host: '172.22.145.22', user: 'zt']， command: 'docker pull ztztzt12345/test'， sudo: true)
+        
       }
     }
 
