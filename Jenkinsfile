@@ -4,7 +4,7 @@ pipeline {
     stage('bulding') {
       agent {
         docker {
-          image 'image \'maven:3-jdk-8\''
+          image 'maven:3-jdk-8'
         }
 
       }
