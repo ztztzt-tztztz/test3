@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        sh 'echo ${env.mvn_home}'
+        sh 'echo ${mvn_home}'
         sh '''
 export PATH=${env.PATH}:${env.mvn_home}/bin
 echo $PATH
