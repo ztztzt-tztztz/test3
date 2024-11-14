@@ -14,8 +14,9 @@ mvn clean install'''
 
     stage('bulid image') {
       steps {
-        sh 'ls -l'
-        sh 'docker build -t test:v1 .'
+        sh 'sh \'pwd\''
+        sh 'sh \'ls -l\''
+        sh 'sh \'docker build -t test:v1 .\''
         sh 'docker push ztztzt12345/test:v1'
       }
     }
