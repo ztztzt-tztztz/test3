@@ -6,7 +6,7 @@ pipeline {
       steps {
         sh 'echo ${mvn_home}'
         sh '''
-export PATH=${env.PATH}:${mvn_home}/bin
+export PATH=${PATH}:${mvn_home}/bin
 echo $PATH
 sh \'mvn clean install\''''
       }
