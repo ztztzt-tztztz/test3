@@ -12,10 +12,10 @@ mvn clean install'''
       }
     }
 
-    stage('echo ') {
+    stage('bulid image') {
       steps {
-        sh 'echo $PATH'
-        sh 'echo $mvn_home'
+        sh 'docker bulid -t test:v1'
+        sh 'docker push ztztzt12345/test:v1'
       }
     }
 
