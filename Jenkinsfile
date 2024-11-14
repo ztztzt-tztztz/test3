@@ -8,7 +8,7 @@ pipeline {
         sh '''
 export PATH=${PATH}:${mvn_home}/bin
 echo $PATH
-sh \'mvn clean install\''''
+mvn clean install'''
       }
     }
 
