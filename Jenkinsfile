@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        cleanws()
+        cleanWs()
         sh 'echo ${mvn_home}'
         sh '${mvn_home}/bin/mvn clean install'
       }
