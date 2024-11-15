@@ -22,9 +22,9 @@ pipeline {
       steps {
         sh 'bash -c "ssh zt@172.22.145.22 \'docker ps\'"'
         sh 'bash -c "ssh zt@${IP} \'docker pull ztztzt12345/test:v1\'"'
-        sh '''bash -c "ssh zt@${IP} \'docker run -itd -p 10080:8080 ztztzt12345/test:v1\'"
+        sh '''
 
-'''
+echo "this is a test"'''
       }
     }
 
