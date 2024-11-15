@@ -21,7 +21,10 @@ git status'''
 
     stage('deploy') {
       steps {
-        sh 'git checkout v1.0'
+        sh '''pwd
+ls -l'''
+        sh '''git tag -n
+git checkout v1.0'''
         sh '''
 git status
 
