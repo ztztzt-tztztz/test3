@@ -1,12 +1,5 @@
 pipeline {
   agent any
-  parameters {
-        choice(
-            name: 'TAG_VERSION',
-            choices: ['v1.0', 'v2.0', 'v3.0'],
-            description: 'Select the version tag to deploy'
-        )
-    }
   stages {
     stage('git') {
       steps {
@@ -27,7 +20,7 @@ git status'''
         sh '''pwd
 ls -l'''
         sh '''git tag -n
-git checkout v1.0'''
+'''
         sh '''
 git status
 
@@ -102,5 +95,8 @@ bash -c "ssh zt@172.22.145.22 \'docker logs test1\'"'''
   environment {
     MVN_HOME = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test'
     IP = '172.22.145.22'
+  }
+  parameters {
+    choice(name: 'TAG_VERSION', choices: ['v1.0', 'v2.0', 'v3.0'], description: 'Select the version tag to deploy')
   }
 }
