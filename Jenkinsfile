@@ -18,9 +18,9 @@ pipeline {
         sh '''pwd
                 ls -l'''
         sh """
-                                                                                                                                                                                                                                                        git tag -n
-                                                                                                                                                                                                                                                        git checkout ${params.TAG_VERSION}
-                                                                                                                                                                                                                                                        """
+                                                                                                                                                                                                                                                                git tag -n
+                                                                                                                                                                                                                                                                git checkout ${params.TAG_VERSION}
+                                                                                                                                                                                                                                                                """
         sh '''git status
                 pwd
                 ls -l
@@ -37,15 +37,15 @@ pipeline {
         stage('build image') {
           steps {
             sh """
-                                                                                    docker build -t test:${params.TAG_VERSION} .
+                                                                                                docker build -t test:${params.TAG_VERSION} .
 
-                                                                                                                   """
+                                                                                                                               """
             sh """
-                                                                                                                                                                                                                                                                                                                                                                                    /usr/bin/docker tag test:${params.TAG_VERSION} ztztzt12345/test:${params.TAG_VERSION}
-                                                                                                                                                                                                                                                                                                                                                                                    """
+                                                                                                                                                                                                                                                                                                                                                                                                /usr/bin/docker tag test:${params.TAG_VERSION} ztztzt12345/test:${params.TAG_VERSION}
+                                                                                                                                                                                                                                                                                                                                                                                                """
             sh """
-                                                                                                                                                                                                                                                                                                                                                                                    bash -c "docker push ztztzt12345/test:${params.TAG_VERSION}"
-                                                                                                                                                                                                                                                                                                                                                                                    """
+                                                                                                                                                                                                                                                                                                                                                                                                bash -c "docker push ztztzt12345/test:${params.TAG_VERSION}"
+                                                                                                                                                                                                                                                                                                                                                                                                """
           }
         }
 
@@ -63,17 +63,17 @@ pipeline {
         stage('ssh deploy') {
           steps {
             sh """
-                                                                                                                                                                                                                                                                                                                                                                                    bash -c "ssh zt@${IP} 'docker pull ztztzt12345/test:${params.TAG_VERSION}'"
-                                                                                                                                                                                                                                                                                                                                                                                    """
+                                                                                                                                                                                                                                                                                                                                                                                                bash -c "ssh zt@${IP} 'docker pull ztztzt12345/test:${params.TAG_VERSION}'"
+                                                                                                                                                                                                                                                                                                                                                                                                """
             input(message: 'Do you want to deploy?', ok: 'Deploy')
             sh """
-                                                                                                                                                                                                                                                                                                                                                                                    bash -c "ssh zt@${IP} 'docker rm -f test1'"
-                                                                                                                                                                                                                                                                                                                                                                                    bash -c "ssh zt@${IP} 'docker run -itd -p 10080:8080 --name test1 ztztzt12345/test:${params.TAG_VERSION}'"
-                                                                                                                                                                                                                                                                                                                                                                                    """
+                                                                                                                                                                                                                                                                                                                                                                                                bash -c "ssh zt@${IP} 'docker rm -f test1'"
+                                                                                                                                                                                                                                                                                                                                                                                                bash -c "ssh zt@${IP} 'docker run -itd -p 10080:8080 --name test1 ztztzt12345/test:${params.TAG_VERSION}'"
+                                                                                                                                                                                                                                                                                                                                                                                                """
             sh """
-                                                                                                                                                                                                                                                                                                                                                                                    bash -c "sleep 3"
-                                                                                                                                                                                                                                                                                                                                                                                    bash -c "ssh zt@${IP} 'docker logs test1'"
-                                                                                                                                                                                                                                                                                                                                                                                    """
+                                                                                                                                                                                                                                                                                                                                                                                                bash -c "sleep 3"
+                                                                                                                                                                                                                                                                                                                                                                                                bash -c "ssh zt@${IP} 'docker logs test1'"
+                                                                                                                                                                                                                                                                                                                                                                                                """
             sh '''ssh zt@${IP} \'ansible localhost -m wait_for -a "host=172.22.145.22 port=10080 state=started timeout=30"\'
 '''
             sh '''ssh zt@${IP} "ansible ${IP} -m uri -a \'url=http://172.22.145.22:10080 return_content=no status_code=200\' --become --become-user root"
@@ -88,6 +88,12 @@ pipeline {
           }
         }
 
+      }
+    }
+
+    stage('test') {
+      steps {
+        echo 'test'
       }
     }
 
