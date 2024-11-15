@@ -4,7 +4,7 @@ pipeline {
     stage('git') {
       steps {
         ws(dir: 'test3_main') {
-          git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'v1.0')
+          git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'refs/tags/v1.0')
           sh '''pwd
 
 '''
