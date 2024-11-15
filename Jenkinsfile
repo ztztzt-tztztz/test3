@@ -1,12 +1,5 @@
 pipeline {
   agent any
-  parameters {
-        choice(
-            name: 'TAG_VERSION',
-            choices: ['v1.0', 'v2.0', 'v3.0'],
-            description: 'Select the version tag to deploy'
-        )
-    }
   stages {
     stage('git') {
       steps {
