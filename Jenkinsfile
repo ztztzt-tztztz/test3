@@ -42,7 +42,7 @@ ls -l
 
 '''
         sh '/usr/bin/docker tag test:v1 ztztzt12345/test:v1'
-        sh 'bash -c "docker push ztztzt-12345/test:v1"'
+        sh 'bash -c "docker push ztztzt12345/test:v1"'
       }
     }
 
