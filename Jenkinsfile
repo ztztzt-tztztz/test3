@@ -8,8 +8,6 @@ pipeline {
           git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
           sh '''pwd
 
-
-ls -l
 '''
         }
 
@@ -18,9 +16,11 @@ ls -l
 
     stage('deploy') {
       steps {
-        sh '''pwd
+        sh 'pwd'
+        sh '''${MVN_HOME}/bin/mvn  clean install
 
-ls -l'''
+'''
+        sh 'ls -l'
       }
     }
 
