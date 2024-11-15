@@ -63,6 +63,8 @@ bash -c "ssh zt@172.22.145.22  \'docker run -itd -p 10080:8080 --name test1 ztzt
 bash -c "sleep 30"
 
 bash -c "ssh zt@172.22.145.22 \'docker logs test1\'"'''
+        sh '''ssh zt@172.22.145.22 "if ! ss -tuln | grep \':10080\' > /dev/null; then echo \'Port 10080 is not open, exiting.\'; exit 1; fi; http_response_code=\\$(curl -s -o /dev/null -w \'%{http_code}\' http://172.22.145.22:10080); if [ \\"\\$http_response_code\\" -ne 200 ]; then echo \'HTTP request failed with response code \\$http_response_code, exiting.\'; exit 1; fi; echo \'Port 10080 is open and HTTP response is 200.\'"
+'''
       }
     }
 
