@@ -3,12 +3,6 @@ pipeline {
   stages {
     stage('git') {
       steps {
-        ws(dir: 'test3_main') {
-          sh '''pwd
-
-'''
-        }
-
         git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
         sh '''git tag -n
 git status'''
