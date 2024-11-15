@@ -7,8 +7,7 @@ pipeline {
           sh '''pwd
 
 '''
-          sh '''git clone --branch v1.0 --single-branch https://github.com/ztztzt-tztztz/test3.git
-'''
+          sh 'git fetch https://github.com/ztztzt-tztztz/test3.git tag v1.0'
           sh '''git tag -n
 
 git checkout v1.0
