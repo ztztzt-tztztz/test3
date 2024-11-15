@@ -4,7 +4,6 @@ pipeline {
     stage('Build') {
       agent any
       steps {
-        git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
         sh '${mvn_home}/bin/mvn clean install'
       }
     }
