@@ -1,111 +1,104 @@
 pipeline {
-    agent any
-    parameters {
-        choice(
-            name: 'TAG_VERSION',
-            choices: ['v1.0', 'v2.0', 'v3.0'],
-            description: 'Select the version tag to deploy'
-        )
-    }
-    environment {
-        MVN_HOME = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test'
-        IP = '172.22.145.22'
-    }
-    stages {
-        stage('git') {
-            steps {
-                ws(dir: 'test3_main') {
-                    sh '''pwd'''
-                }
-
-                // Clone the Git repository and checkout the selected tag
-                git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
-                sh '''git tag -n
-                git status'''
-            }
+  agent any
+  stages {
+    stage('git') {
+      steps {
+        ws(dir: 'test3_main') {
+          sh 'pwd'
         }
 
-        stage('mvn') {
-            steps {
-                sh '''pwd
+        git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
+        sh '''git tag -n
+                git status'''
+      }
+    }
+
+    stage('mvn') {
+      steps {
+        sh '''pwd
                 ls -l'''
-                
-                // Checkout the selected tag
-                sh """
-                git tag -n
-                git checkout ${params.TAG_VERSION}
-                """
-                
-                sh '''git status
+        sh """
+                        git tag -n
+                        git checkout ${params.TAG_VERSION}
+                        """
+        sh '''git status
                 pwd
                 ls -l
                 '''
-                sh '''
+        sh '''
                 ${MVN_HOME}/bin/mvn clean install
                 '''
-                sh 'ls -l'
-            }
-        }
-
-        stage('build image') {
-            parallel {
-                stage('build image') {
-                    steps {
-                        // Use the tag version in the Docker image build
-                        sh """
-                        /usr/bin/docker build -t test:${params.TAG_VERSION} .
-                        """
-                        sh """
-                        /usr/bin/docker tag test:${params.TAG_VERSION} ztztzt12345/test:${params.TAG_VERSION}
-                        """
-                        sh """
-                        bash -c "docker push ztztzt12345/test:${params.TAG_VERSION}"
-                        """
-                    }
-                }
-
-                stage('build image2') {
-                    steps {
-                        sh 'echo "test is test"'
-                    }
-                }
-            }
-        }
-
-        stage('ssh deploy') {
-            parallel {
-                stage('ssh deploy') {
-                    steps {
-                        sh """
-                        bash -c "ssh zt@${IP} 'docker pull ztztzt12345/test:${params.TAG_VERSION}'"
-                        """
-                        
-                        // User input to confirm deployment
-                        input(message: 'Do you want to deploy?', ok: 'Deploy')
-                        
-                        // Remove old container and run the new one with the tag version
-                        sh """
-                        bash -c "ssh zt@${IP} 'docker rm -f test1'"
-                        bash -c "ssh zt@${IP} 'docker run -itd -p 10080:8080 --name test1 ztztzt12345/test:${params.TAG_VERSION}'"
-                        """
-                        
-                        // Wait for a few seconds and then check the logs and HTTP response
-                        sh """
-                        bash -c "sleep 30"
-                        bash -c "ssh zt@${IP} 'docker logs test1'"
-                        """
-                        sh """
-                        ssh zt@${IP} "if ! ss -tuln | grep ':10080' > /dev/null; then echo 'Port 10080 is not open, exiting.'; exit 1; fi; http_response_code=\$(curl -s -o /dev/null -w '%{http_code}' http://172.22.145.22:10080); if [ \\"\$http_response_code\\" -ne 200 ]; then echo 'HTTP request failed with response code \$http_response_code, exiting.'; exit 1; fi; echo 'Port 10080 is open and HTTP response is 200.'"
-                        """
-                    }
-                }
-
-                stage('deploy2') {
-                    steps {
-                        sh 'echo "test is test 2"'
-                    }
-                }
-            }
-        }
+        sh 'ls -l'
+      }
     }
+
+    stage('build image') {
+      parallel {
+        stage('build image') {
+          steps {
+            sh """
+                                    /usr/bin/docker build -t test:${params.TAG_VERSION} .
+                                    """
+            sh """
+                                    /usr/bin/docker tag test:${params.TAG_VERSION} ztztzt12345/test:${params.TAG_VERSION}
+                                    """
+            sh """
+                                    bash -c "docker push ztztzt12345/test:${params.TAG_VERSION}"
+                                    """
+          }
+        }
+
+        stage('build image2') {
+          steps {
+            sh 'echo "test is test"'
+          }
+        }
+
+      }
+    }
+
+    stage('ssh deploy') {
+      parallel {
+        stage('ssh deploy') {
+          steps {
+            sh """
+                                    bash -c "ssh zt@${IP} 'docker pull ztztzt12345/test:${params.TAG_VERSION}'"
+                                    """
+            input(message: 'Do you want to deploy?', ok: 'Deploy')
+            sh """
+                                    bash -c "ssh zt@${IP} 'docker rm -f test1'"
+                                    bash -c "ssh zt@${IP} 'docker run -itd -p 10080:8080 --name test1 ztztzt12345/test:${params.TAG_VERSION}'"
+                                    """
+            sh """
+                                    bash -c "sleep 30"
+                                    bash -c "ssh zt@${IP} 'docker logs test1'"
+                                    """
+            sh """
+                                    ssh zt@172.22.145.22 "echo '#!/bin/bash\n\nif ! ss -tuln | grep \':10080\' > /dev/null; then\n  echo \"Port 10080 is not open, exiting.\"\n  exit 1\nfi\n\nhttp_response_code=\$(curl -s -o /dev/null -w \'%{http_code}\' http://172.22.145.22:10080)\n\nif [ \"\$http_response_code\" -ne 200 ]; then\n  echo \"HTTP request failed with response code \$http_response_code, exiting.\"\n  exit 1\nfi\n\necho \"Port 10080 is open and HTTP response is 200.\"' > /tmp/check_port_and_http.sh"
+
+              ssh zt@172.22.145.22 "chmod +x /tmp/check_port_and_http.sh"
+              
+             
+              ssh zt@172.22.145.22 "/tmp/check_port_and_http.sh"
+                                    """
+          }
+        }
+
+        stage('deploy2') {
+          steps {
+            sh 'echo "test is test 2"'
+          }
+        }
+
+      }
+    }
+
+  }
+  environment {
+    MVN_HOME = '/var/jenkins_home/tools/hudson.tasks.Maven_MavenInstallation/mvn_test'
+    IP = '172.22.145.22'
+  }
+  parameters {
+    choice(name: 'TAG_VERSION', choices: ['v1.0', 'v2.0', 'v3.0'], description: 'Select the version tag to deploy')
+  }
 }
