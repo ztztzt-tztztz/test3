@@ -21,6 +21,7 @@ git status'''
 
     stage('deploy') {
       steps {
+        sh 'git checkout v1.0'
         sh '''
 git status
 
