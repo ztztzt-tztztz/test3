@@ -7,17 +7,11 @@ pipeline {
           sh '''pwd
 
 '''
-          sh 'git fetch https://github.com/ztztzt-tztztz/test3.git tag v1.0'
-          sh '''git tag -n
-
-git checkout v1.0
-
-git status'''
-          sh '''git tag -n
-git status'''
         }
 
-        sh 'git status'
+        git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
+        sh '''git tag -n
+git status'''
       }
     }
 
