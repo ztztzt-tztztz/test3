@@ -9,8 +9,11 @@ pipeline {
           sh '''pwd
 
 '''
+          sh '''pwd
+ls -l'''
         }
 
+        sh 'ls -l'
       }
     }
 
