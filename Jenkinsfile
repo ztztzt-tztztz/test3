@@ -12,15 +12,19 @@ pipeline {
 
 git checkout v1.0
 
-'''
+git status'''
         }
 
+        sh 'git status'
       }
     }
 
     stage('deploy') {
       steps {
-        sh '''pwd
+        sh '''
+git status
+
+pwd
 
 ls -l
 '''
