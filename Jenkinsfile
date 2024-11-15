@@ -1,13 +1,13 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
+    stage('Git') {
       agent any
       steps {
-        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true, cleanupMatrixParent: true, deleteDirs: true, disableDeferredWipeout: true)
-        sh '''pwd
-ls -l'''
-        sh '${mvn_home}/bin/mvn clean install'
+        git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
+        sh '''git status
+
+git tag -n'''
       }
     }
 
