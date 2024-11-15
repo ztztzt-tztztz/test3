@@ -13,6 +13,8 @@ pipeline {
 git checkout v1.0
 
 git status'''
+          sh '''git tag -n
+git status'''
         }
 
         sh 'git status'
