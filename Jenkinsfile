@@ -4,27 +4,10 @@ pipeline {
     stage('Build') {
       agent any
       steps {
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true, cleanupMatrixParent: true, deleteDirs: true, disableDeferredWipeout: true)
         sh '${mvn_home}/bin/mvn clean install'
-      }
-    }
-
-    stage('bulid image') {
-      steps {
-        dir(path: '/var/jenkins_home/workspace/test3_main@2') {
-          sh 'bash -c "docker build -t test:v1 ."'
-        }
-
-        sh 'docker tag test:v1 ztztzt12345/test:v1'
-      }
-    }
-
-    stage('deploy') {
-      steps {
-        sh 'bash -c "ssh zt@172.22.145.22 \'docker ps\'"'
-        sh 'bash -c "ssh zt@${IP} \'docker pull ztztzt12345/test:v1\'"'
-        sh '''
-
-echo "this is a test"'''
+        sh '''pwd
+ls -l'''
       }
     }
 
