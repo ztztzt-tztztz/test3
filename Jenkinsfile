@@ -4,9 +4,10 @@ pipeline {
     stage('git') {
       steps {
         ws(dir: 'test3_main') {
-          git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'refs/tags/v1.0')
           sh '''pwd
 
+'''
+          sh '''git clone --branch v1.0 --single-branch https://github.com/ztztzt-tztztz/test3.git
 '''
           sh '''git tag -n
 
