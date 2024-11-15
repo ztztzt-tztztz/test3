@@ -48,16 +48,18 @@ ls -l
 
     stage('ssh  deploy') {
       steps {
-        sh '''bash -c "ssh zt@172.22.145.22 \'ls -l\'"
+        sh '''
 
 bash -c "ssh zt@172.22.145.22 \'docker pull ztztzt12345/test:v1\'"
 
 
-bash -c "ssh zt@172.22.145.22  \'docker rm -f test1\'"
+'''
+        sh '''bash -c "ssh zt@172.22.145.22  \'docker rm -f test1\'"
 
 
 bash -c "ssh zt@172.22.145.22  \'docker run -itd -p 10080:8080 --name test1 ztztzt12345/test:v1\'"
- 
+'''
+        sh ''' 
 bash -c "sleep 30"
 
 bash -c "ssh zt@172.22.145.22 \'docker logs test1\'"'''
