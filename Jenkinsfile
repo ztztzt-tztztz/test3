@@ -4,8 +4,26 @@ pipeline {
     stage('Git') {
       agent any
       steps {
-        git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
-        sh '''git status
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true, cleanWhenUnstable: true, cleanupMatrixParent: true, deleteDirs: true, disableDeferredWipeout: true)
+        ws(dir: '/var/jenkins_home/workspace/test3_main') {
+          git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
+          sh '''pwd
+
+git status 
+
+
+git tag -n'''
+        }
+
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh '''pwd
+
+ls -l
+
 
 git tag -n'''
       }
