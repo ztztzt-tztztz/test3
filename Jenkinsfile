@@ -8,11 +8,13 @@ pipeline {
           sh '''pwd
 
 '''
-          sh '''pwd
-ls -l'''
+          sh '''git tag -n
+
+git checkout v1.0
+
+'''
         }
 
-        sh 'ls -l'
       }
     }
 
@@ -22,6 +24,7 @@ ls -l'''
 
 ls -l
 '''
+        sh 'ls -l'
         sh '''${MVN_HOME}/bin/mvn  clean install
 
 '''
