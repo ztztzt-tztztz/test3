@@ -16,7 +16,10 @@ pipeline {
 
     stage('deploy') {
       steps {
-        sh 'pwd'
+        sh '''pwd
+
+ls -l
+'''
         sh '''${MVN_HOME}/bin/mvn  clean install
 
 '''
