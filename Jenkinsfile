@@ -3,18 +3,16 @@ pipeline {
   
   stages {
     
-    stage('Build') {
+    stage('Mvn') {
       agent {
         kubernetes {
-          inheritFrom 'docker'
+          inheritFrom 'maven'
         }
 
       }
       steps {
-        container(name: 'docker') {
-          git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
-          sh '"echo "Building Docker image...""'
-          sh '"docker build -t my-app:v1 ."'
+        container(name: 'maven') {
+          mvn clean install
         }
 
       }
