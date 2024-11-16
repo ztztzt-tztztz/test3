@@ -31,7 +31,7 @@ pipeline {
     stage('Build') {
       agent {
                 kubernetes {
-                    yamlFile 'docker.yaml'
+                     inheritFrom 'docker'
                     
                 }
             }
