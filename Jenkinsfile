@@ -31,7 +31,8 @@ pipeline {
     stage('Build') {
       agent {
                 kubernetes {
-                    label 'docker'
+                    yamlFile 'docker.yaml'
+                    
                 }
             }
       steps {
