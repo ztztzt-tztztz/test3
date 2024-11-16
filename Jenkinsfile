@@ -29,7 +29,10 @@ pipeline {
 
 docker build -t test:v11 .
 
-dokcer push test:v11'''
+
+docker tag test:v11  ztztzt12345/test:v11
+
+docker push ztztzt12345/test:v11'''
         }
 
       }
