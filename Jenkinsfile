@@ -96,10 +96,7 @@ pipeline {
 
     stage('k8s deploy') {
       agent {
-        kubernetes {
-          label 'k8s-agent'
-          
-        }
+        kubernetes {}
       }
       steps {
         echo 'Deploying to Kubernetes...'
