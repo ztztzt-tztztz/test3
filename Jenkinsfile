@@ -10,14 +10,11 @@ pipeline {
       }
       steps {
         container(name: 'maven') {
-
           sh 'mvn clean install'
-
         }
 
       }
     }
-
 
     stage('Docker') {
       agent {
@@ -28,9 +25,9 @@ pipeline {
       }
       steps {
         container(name: 'docker') {
+          sh '''docker ps
 
-          sh 'docker ps'
-
+docker build -t test:v11'''
         }
 
       }
