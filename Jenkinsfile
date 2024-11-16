@@ -1,8 +1,6 @@
 pipeline {
   agent none
-  
   stages {
-    
     stage('Mvn') {
       agent {
         kubernetes {
@@ -12,6 +10,7 @@ pipeline {
       }
       steps {
         container(name: 'maven') {
+          sh 'ls -la'
           sh 'mvn clean install'
         }
 
