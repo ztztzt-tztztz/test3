@@ -1,9 +1,11 @@
 pipeline {
     agent {
         kubernetes {
-            
             podRetention never()
         }
+    }
+    options {
+        timeout(time: 60, unit: 'MINUTES') // 设置超时时间为60分钟
     }
     stages {
         stage('Check if running in Kubernetes') {
@@ -20,7 +22,7 @@ pipeline {
         stage('Build') {
             steps {
                 container('maven') {
-                    sh 'mvn --version'
+                    sh 'mvn clean install'
                 }
             }
         }
