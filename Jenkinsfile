@@ -22,6 +22,12 @@ pipeline {
     }
 
     stage('Mvn') {
+      agent {
+        kubernetes {
+          inheritFrom 'mvn'
+        }
+
+      }
       steps {
         container(name: 'maven') {
           sh 'mvn clean install'
