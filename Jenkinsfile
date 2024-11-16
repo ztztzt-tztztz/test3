@@ -48,6 +48,6 @@ pipeline {
     timeout(time: 60, unit: 'MINUTES')
   }
   parameters {
-    choice(name: 'VERSION', choices: ['v1', 'v2', 'v3'], description: 'Select the version to build')
+    choice(name: 'VERSION', choices: ['v1.0', 'v2.0', 'v3.0'], description: 'Select the version to build')
   }
 }
