@@ -4,7 +4,7 @@ pipeline {
     stage('Build') {
       agent {
         kubernetes {
-          label 'docker'
+          label 'mvn'
           defaultContainer 'docker'
         }
 
