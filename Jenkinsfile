@@ -16,6 +16,7 @@ spec:
       - cat
       tty: true
 """
+            podRetention never()
         }
     }
     stages {
