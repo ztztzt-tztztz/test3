@@ -32,7 +32,7 @@ pipeline {
       steps {
         container(name: 'docker') {
           sh '''echo "Building Docker image..."
-sh -c "docker build -t my-app:v1 ."'''
+sh -c "sudo docker build -t my-app:v1 ."'''
         }
 
       }
