@@ -4,7 +4,8 @@ pipeline {
     stage('Build') {
       agent {
         kubernetes {
-          inheritFrom 'docker'
+          label 'docker'
+          defaultContainer 'docker'
         }
 
       }
