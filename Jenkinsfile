@@ -1,5 +1,5 @@
 pipeline {
-  agent nono
+  agent none
   
   stages {
     stage('Check if running in Kubernetes') {
