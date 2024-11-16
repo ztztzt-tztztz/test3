@@ -23,6 +23,8 @@ pipeline {
       steps {
         container(name: 'maven') {
           sh 'mvn clean install'
+          sh '''chown -R zt:zt target
+'''
         }
 
       }
