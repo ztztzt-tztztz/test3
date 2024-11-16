@@ -98,15 +98,7 @@ pipeline {
       agent {
         kubernetes {
           label 'k8s-agent'
-          yaml """
-          apiVersion: v1
-          kind: Pod
-          spec:
-            containers:
-            - name: jnlp
-              image: jenkins/inbound-agent
-              args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-          """
+          
         }
       }
       steps {
