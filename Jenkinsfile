@@ -1,29 +1,57 @@
 pipeline {
-  agent none
+  agent nono
+  
   stages {
+    stage('Check if running in Kubernetes') {
+      agent {
+        kubernetes {
+          inheritFrom 'mvn'
+        }
+
+      }
+      steps {
+        script {
+          if (env.KUBERNETES_SERVICE_HOST) {
+            echo "Running in Kubernetes Pod!"
+          } else {
+            echo "Not running in Kubernetes!"
+          }
+        }
+
+      }
+    }
+
+    stage('Mvn') {
+      steps {
+        container(name: 'maven') {
+          sh 'mvn clean install'
+        }
+
+      }
+    }
+
     stage('Build') {
       agent {
         kubernetes {
-          label 'mvn'
-          defaultContainer 'docker'
+          inheritFrom 'docker'
         }
 
       }
       steps {
         container(name: 'docker') {
+          git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
           sh '''echo "Building Docker image..."
 pwd
 ls -l
 echo $HOME
-
-
-ls /var/run/docker.sock 
-
 sh -c "docker build -t my-app:v1 ."'''
         }
 
       }
     }
 
+  }
+  options {
+    timeout(time: 60, unit: 'MINUTES')
   }
 }
