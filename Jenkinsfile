@@ -27,7 +27,9 @@ pipeline {
         container(name: 'docker') {
           sh '''docker ps
 
-docker build -t test:v11'''
+docker build -t test:v11 .
+
+dokcer push test:v11'''
         }
 
       }
