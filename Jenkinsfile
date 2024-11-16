@@ -30,8 +30,11 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh '''echo "Building Docker image..."
+        container(name: 'docker') {
+          sh '''echo "Building Docker image..."
 bash -c "docker build -t my-app:v1 ."'''
+        }
+
       }
     }
 
