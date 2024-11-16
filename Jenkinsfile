@@ -16,6 +16,7 @@ pipeline {
           sh "git checkout ${params.VERSION}"
           sh 'mvn clean install'
           echo 'git veriosn ${params.VERSION}'
+          sh 'ls -l'
         }
 
       }
@@ -30,6 +31,7 @@ pipeline {
       }
       steps {
         container(name: 'docker') {
+          sh 'ls -l'
           sh 'docker ps'
           sh "docker build -t test:${params.VERSION} ."
           sh "docker tag test:${params.VERSION} ztztzt12345/test:${params.VERSION}"
