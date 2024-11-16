@@ -29,6 +29,11 @@ pipeline {
     }
 
     stage('Build') {
+      agent {
+                kubernetes {
+                    label 'docker'
+                }
+            }
       steps {
         container(name: 'docker') {
           sh '''echo "Building Docker image..."
