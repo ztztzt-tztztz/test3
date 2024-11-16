@@ -1,6 +1,7 @@
 pipeline {
   agent {
     kubernetes {
+      inheritFrom 'mvn'
       podRetention never()
     }
 
