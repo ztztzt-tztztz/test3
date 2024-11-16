@@ -94,26 +94,7 @@ pipeline {
       }
     }
 
-    stage('k8s deploy') {
-      agent {
-        kubernetes {
-          label 'k8s-agent'
-          yaml """
-          apiVersion: v1
-          kind: Pod
-          spec:
-            containers:
-            - name: jnlp
-              image: jenkins/inbound-agent
-              args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-          """
-        }
-      }
-      steps {
-        echo 'Deploying to Kubernetes...'
-        // 在这里添加你的 Kubernetes 部署步骤
-      }
-    }
+    
   }
   environment {
     MVN_HOME = '/var/jenkins_home/tools/maven'
