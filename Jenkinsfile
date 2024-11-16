@@ -45,10 +45,17 @@ pipeline {
       }
     }
 
+    stage('deploy') {
+      agent any
+      steps {
+        sh 'ssh zt@{IP} "kubectl set image deployment/my-app my-app=/ztztzt12345/test:${params.VERSION}"'
+      }
+    }
+
   }
   options {
     timeout(time: 60, unit: 'MINUTES')
-    skipDefaultCheckout(true) 
+    skipDefaultCheckout(true)
   }
   parameters {
     choice(name: 'VERSION', choices: ['v1.0', 'v2.0', 'v3.0'], description: 'Select the version to build')
