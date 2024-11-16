@@ -10,8 +10,12 @@ spec:
     - name: jnlp
       image: jenkins/inbound-agent
       args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
+    - name: maven
+      image: maven:3.8.1-jdk-11
+      command:
+      - cat
+      tty: true
 """
-            podRetention never()
         }
     }
     stages {
@@ -28,7 +32,7 @@ spec:
         }
         stage('Build') {
             steps {
-                container('jnlp') {
+                container('maven') {
                     sh 'mvn --version'
                 }
             }
