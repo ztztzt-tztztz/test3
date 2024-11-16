@@ -97,6 +97,7 @@ pipeline {
     stage('k8s deploy') {
       agent {
         kubernetes {
+          label 'k8s-agent'
           yaml """
           apiVersion: v1
           kind: Pod
