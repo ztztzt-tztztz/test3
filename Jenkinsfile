@@ -48,10 +48,13 @@ pipeline {
     stage('deploy') {
       agent any
       steps {
-        sh 'ssh zt@{IP} "kubectl set image deployment/my-app my-app=/ztztzt12345/test:${params.VERSION}"'
+        sh 'ssh zt@${IP} "kubectl set image deployment/my-app my-app=/ztztzt12345/test:${params.VERSION}"'
       }
     }
 
+  }
+  environment {
+    IP = '172.22.145.22'
   }
   options {
     timeout(time: 60, unit: 'MINUTES')
