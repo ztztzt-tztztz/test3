@@ -30,15 +30,15 @@ pipeline {
 
     stage('Build') {
       agent {
-                kubernetes {
-                     inheritFrom 'docker'
-                    
-                }
-            }
+        kubernetes {
+          inheritFrom 'docker'
+        }
+
+      }
       steps {
         container(name: 'docker') {
           sh '''echo "Building Docker image..."
-sh -c "sudo docker build -t my-app:v1 ."'''
+sh -c "docker build -t my-app:v1 ."'''
         }
 
       }
