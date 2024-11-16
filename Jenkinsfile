@@ -23,3 +23,4 @@ sh -c "docker build -t my-app:v1 ."'''
     }
 
   }
+}
