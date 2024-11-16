@@ -21,6 +21,15 @@ whoami
 
 ls  -al /root/'''
           sh 'mvn clean install'
+          sh '''ls -la ../
+
+ls -al ~/
+
+echo $HOME
+
+whoami
+
+ls  -al /root/'''
         }
 
       }
