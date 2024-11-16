@@ -12,6 +12,7 @@ pipeline {
         container(name: 'maven') {
           echo "Building version: ${params.VERSION}"
           git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
+          sh 'git tag -n'
           sh "git checkout ${params.VERSION}"
           sh 'mvn clean install'
           echo 'git veriosn ${params.VERSION}'
