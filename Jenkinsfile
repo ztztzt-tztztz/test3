@@ -10,26 +10,27 @@ pipeline {
       }
       steps {
         container(name: 'maven') {
-          sh '''
-ls -la ../
 
-ls -al ~/
-
-echo $HOME
-
-whoami
-
-ls  -al /root/'''
           sh 'mvn clean install'
-          sh '''ls -la ../
 
-ls -al ~/
+        }
 
-echo $HOME
+      }
+    }
 
-whoami
 
-ls  -al /root/'''
+    stage('Docker') {
+      agent {
+        kubernetes {
+          inheritFrom 'docker'
+        }
+
+      }
+      steps {
+        container(name: 'docker') {
+
+          sh 'docker ps'
+
         }
 
       }
