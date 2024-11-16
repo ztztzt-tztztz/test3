@@ -13,8 +13,6 @@ pipeline {
           echo "Building version: ${params.VERSION}"
           git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
           sh "git checkout ${params.VERSION}"
-
-          sh "git status"
           sh 'mvn clean install'
           echo 'git veriosn ${params.VERSION}'
         }
