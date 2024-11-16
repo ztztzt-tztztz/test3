@@ -23,8 +23,6 @@ pipeline {
       steps {
         container(name: 'maven') {
           sh 'mvn clean install'
-          sh '''chown -R zt:zt target
-'''
         }
 
       }
@@ -33,7 +31,7 @@ pipeline {
     stage('Build') {
       steps {
         sh '''echo "Building Docker image..."
-sh \'docker build -t my-app:v1 .\''''
+bash -c "docker build -t my-app:v1 ."'''
       }
     }
 
