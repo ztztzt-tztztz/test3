@@ -16,7 +16,6 @@ pwd
 ls -l
 echo $HOME
 
-sleep 60
 
 ls /var/run/docker.sock 
 
