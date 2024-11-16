@@ -17,6 +17,8 @@ ls -al ~/
 
 echo $HOME
 
+whoami
+
 ls  -al /root/*'''
           sh 'mvn clean install'
         }
