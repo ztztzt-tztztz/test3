@@ -1,6 +1,7 @@
 pipeline {
     agent {
         kubernetes {
+            label 'k8s-agent'
             yaml """
 apiVersion: v1
 kind: Pod
@@ -9,12 +10,8 @@ spec:
     - name: jnlp
       image: jenkins/inbound-agent
       args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
-    - name: maven
-      image: maven:3.8.1-jdk-11
-      command:
-      - cat
-      tty: true
 """
+            podRetention never()
         }
     }
     stages {
@@ -31,7 +28,7 @@ spec:
         }
         stage('Build') {
             steps {
-                container('maven') {
+                container('jnlp') {
                     sh 'mvn --version'
                 }
             }
