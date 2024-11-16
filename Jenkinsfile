@@ -19,7 +19,7 @@ echo $HOME
 
 whoami
 
-ls  -al /root/*'''
+ls  -al /root/'''
           sh 'mvn clean install'
         }
 
