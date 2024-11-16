@@ -32,9 +32,10 @@ docker build -t test:v11 .
 
 docker tag test:v11  ztztzt12345/test:v11
 
-echo $DOCKERHUB_PASSWORD | docker login -u ztztzt12345 --password-stdin 
+withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin' 
 
-sh \'docker push my-app:v1\'
+}
 
 docker push ztztzt12345/test:v11'''
         }
