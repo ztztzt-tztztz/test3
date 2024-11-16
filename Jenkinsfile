@@ -28,14 +28,16 @@ pipeline {
           sh '''docker ps
 
 docker build -t aa:v11 .
-
-
-
-docker push aa:v11'''
+withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+sh 'echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin' 
+sh 'docker push ztztzt12345/test:v11' 
+} 
+'''
         }
 
       }
     }
+    
 
   }
   options {
