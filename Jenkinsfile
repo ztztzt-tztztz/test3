@@ -11,7 +11,7 @@ pipeline {
       }
       steps {
         container(name: 'docker') {
-          )
+          
           sh '''echo "Building Docker image..."
 pwd
 ls -l
