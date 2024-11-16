@@ -14,7 +14,7 @@ pipeline {
         container(name: 'docker') {
           git(url: 'https://github.com/ztztzt-tztztz/test3.git', branch: 'main')
           sh '"echo "Building Docker image..."'
-          "docker build -t my-app:v1 ."
+          sh 'docker build -t my-app:v1 .'
         }
 
       }
