@@ -12,7 +12,7 @@ pipeline {
       }
       steps {
         container(name: 'maven') {
-          mvn clean install
+          sh 'mvn clean install'
         }
 
       }
