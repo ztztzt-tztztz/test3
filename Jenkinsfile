@@ -61,6 +61,6 @@ pipeline {
     skipDefaultCheckout(true)
   }
   parameters {
-    choice(name: 'VERSION', choices: ['v1.0', 'v2.0', 'v3.0'], description: 'Select the version to build')
+    choice(name: 'VERSION', choices: ['v1.0', 'v2.0', 'v3.0'，'v5.0']， description: 'Select the version to build')
   }
 }
